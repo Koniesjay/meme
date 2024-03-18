@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract DegenGamingToken is ERC20 {
+contract MEME is ERC20 {
     address public owner;
 
     constructor() ERC20("MEME", "MME") {
