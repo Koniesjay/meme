@@ -1,54 +1,26 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity ^0.8.18;
 
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Gontar {
+contract DegenGamingToken is ERC20 {
+    address public owner;
 
-    // public variables here
-    string public TokenName = "MEME";
-    string public TokenAbbrv = "MEME";
-    uint public totalSupply;
-    address private owner;
-
-    // mapping variable here
-    mapping (address => uint) public balances;
-
-    modifier onlyOWner {
-        require(owner == msg.sender,"Not Owner");
-        _;
-    }
-
-    error zeroAddress();
-    error insufficientFund(string fund);
-
-    constructor() {
+    constructor() ERC20("MEME", "MME") {
         owner = msg.sender;
     }
 
-    // mint function
-
-    function mint(address _to, uint _value) public onlyOWner {
-        if(_to == address(0)) revert zeroAddress();
-        totalSupply += _value;
-        balances[_to] += _value;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "You are not the owner of this contract");
+        _;
     }
 
-    function transfer(address _to, uint _value) public {
-        if(balances[msg.sender] < _value) revert insufficientFund("Not enough MEME to perform this transaction");
-        if(_to == address(0)) revert zeroAddress();
-        balances[msg.sender] -= _value;
-        balances[_to] += _value;
+    function mint(uint value) public onlyOwner {
+        _mint(msg.sender, value * 10 ** 18);
     }
 
-    // burn function
-
-    function burn(uint _value) public {
-        if (balances[msg.sender] < _value){
-        revert insufficientFund("msg.sender can't burn more than balance");
-        }
-
-        totalSupply -= _value;
-        balances[msg.sender] -= _value;
+    function burn(uint256 value) public {
+        _burn(msg.sender, value);
     }
 
 }
