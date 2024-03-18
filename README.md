@@ -1,29 +1,20 @@
-## Overview
+# MEME Token Contract
 
-Tjis a basic implementation of an ERC-20 token with minting, transfer, and burn functionalities.
+The MEME token contract is a Solidity smart contract that implements the ERC20 standard for a basic fungible token. It allows for the creation, transfer, and destruction of tokens on the Ethereum blockchain.
 
-### Public Variables:
+# Features
 
-- `TokenName`: The name of the token, set to "MEME".
-- `TokenAbbrv`: The abbreviation for the token, set to "MEME".
-- `totalSupply`: The total supply of tokens in circulation, initially set to 0.
-- `owner`: The address of the owner of the contract, set to the deployer's address in the constructor.
+ERC20 Compatibility
+The MEME token contract is compatible with the ERC20 standard, allowing it to be used with a wide range of wallets, exchanges, and other smart contracts that support ERC20 tokens.
 
-### Mapping:
+# Minting
 
-- `balances`: A mapping that stores the balance of each address in the token.
+The contract includes a mint function that allows the owner of the contract to create new tokens. Only the owner address specified during contract deployment can call this function.
 
-### Modifier:
+# Burning
 
-`onlyOWner`: This modifier ensures that only the owner of the contract can call the functions it applies to.
+The contract includes a burn function that allows token holders to destroy their tokens, effectively removing them from circulation. This function can be called by any token holder.
 
-### Error:
+# Ownership
 
-- `zeroAddress`: This custom error is used when someone tries to mint or transfer tokens to the zero address (invalid address).
-- `insufficientFund`: This custom error is used when someone tries to transfer or burn more tokens than they have in their balance.
-
-### Functions:
-
-- `mint`: This function allows the owner to mint new tokens and send them to a specified address. It checks for zero address and updates the total supply and sender's balance accordingly.
-- `transfer`: This function allows anyone to transfer tokens from their account to another address. It checks for sufficient balance and zero address before updating the balances.
-- `burn`: This function allows the token holder to burn some of their tokens, reducing the total supply and their balance. It checks for sufficient balance before burning.
+The contract includes an owner variable to track the address of the contract owner. Certain functions, such as mint, are restricted to be called only by the owner of the contract.
