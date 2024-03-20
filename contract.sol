@@ -19,7 +19,13 @@ contract MEME is ERC20 {
         _mint(msg.sender, value * 10 ** 18);
     }
 
+    function transfer(address to, uint256 value) public virtual override returns(bool success){
+        require(balanceOf(msg.sender) => value, "Not enough balance");
+        success = super.transfer(to,value)
+    }
+
     function burn(uint256 value) public {
+        require(balanceOf(msg.sender) => value, "Not enough balance");
         _burn(msg.sender, value);
     }
 
